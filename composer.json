@@ -1,0 +1,29 @@
+{
+    "name": "alex-kalanis/kw_scripts",
+    "description": "Scripts storage in KWCMS",
+    "keywords": [
+        "scripts"
+    ],
+    "license": "BSD-3-Clause",
+    "type": "library",
+    "require": {
+        "alex-kalanis/kw_paths": ">=1.0",
+        "php": ">=7.2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=7.2"
+    },
+    "suggest": {
+        "alex-kalanis/kw_mime": "Mime types for KWCMS",
+        "alex-kalanis/kw_template": "Templates for KWCMS"
+    },
+    "autoload": {
+        "psr-4": {
+            "kalanis\\kw_scripts\\": "php-src/"
+        }
+    },
+    "scripts": {
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
