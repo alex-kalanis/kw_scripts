@@ -13,6 +13,9 @@ use kalanis\kw_scripts\ScriptsException;
 
 class ScriptsTest extends CommonTestClass
 {
+    /**
+     * @throws ScriptsException
+     */
     public function testLoaderException(): void
     {
         $loader = new PhpLoader();
@@ -20,6 +23,9 @@ class ScriptsTest extends CommonTestClass
         $loader->load('dummy', 'file');
     }
 
+    /**
+     * @throws ScriptsException
+     */
     public function testGetVirtualFile(): void
     {
         $path = new Path();
@@ -29,6 +35,9 @@ class ScriptsTest extends CommonTestClass
         $this->assertEquals('abcmnodefpqrghistujklvwx%syz0123%s456', Scripts::getFile('abc', 'def'));
     }
 
+    /**
+     * @throws ScriptsException
+     */
     public function testGetRealFile(): void
     {
         $path = new Path();
@@ -37,6 +46,9 @@ class ScriptsTest extends CommonTestClass
         $this->assertEquals('// dummy script file', Scripts::getFile('dummy', 'dummyScript.js'));
     }
 
+    /**
+     * @throws ScriptsException
+     */
     public function testGetNoFile(): void
     {
         $path = new Path();
