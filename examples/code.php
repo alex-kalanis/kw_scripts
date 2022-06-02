@@ -9,10 +9,10 @@ $paths->setPathToSystemRoot('/..');
 /// ... other steps
 
 // init scripts
-\kalanis\kw_scripts\Scripts::init($paths);
+\kalanis\kw_scripts\Scripts::init(new \kalanis\kw_scripts\Loaders\PhpLoader($paths));
 
 
-//// Now class itself
+//// Now class to access scripts itself
 
 use kalanis\kw_mime\MimeType;
 use kalanis\kw_extras\ExternalLink;
@@ -73,6 +73,7 @@ class Scripts
 
 /**
  * Class ScriptsTemplate
+ * Template to render script element
  */
 class ScriptsTemplate extends ATemplate
 {

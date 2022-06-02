@@ -6,7 +6,6 @@ namespace kalanis\kw_scripts\Loaders;
 use kalanis\kw_paths\Interfaces\IPaths;
 use kalanis\kw_paths\Path;
 use kalanis\kw_scripts\Interfaces\ILoader;
-use kalanis\kw_scripts\ScriptsException;
 
 
 /**
@@ -27,10 +26,10 @@ class PhpLoader implements ILoader
         '%2$s%1$s%5$s%1$s%6$s%1$s%7$s', # all modules, scripts in root
     ];
 
-    /** @var null|Path */
+    /** @var Path */
     protected $pathLib = null;
 
-    public function setPathLib(?Path $pathLib): void
+    public function __construct(Path $pathLib)
     {
         $this->pathLib = $pathLib;
     }
@@ -41,17 +40,8 @@ class PhpLoader implements ILoader
         return (!empty($includingPath)) ? $this->includedScript($includingPath) : '';
     }
 
-    /**
-     * @param string $module
-     * @param string $conf
-     * @return string|null
-     * @throws ScriptsException
-     */
     public function contentPath(string $module, string $conf = ''): ?string
     {
-        if (empty($this->pathLib)) {
-            throw new ScriptsException('Need to set Path library first!');
-        }
         $basicLookupDir = $this->pathLib->getDocumentRoot() . $this->pathLib->getPathToSystemRoot();
         foreach ($this->pathMasks as $pathMask) {
             $unmasked = sprintf( $pathMask,
