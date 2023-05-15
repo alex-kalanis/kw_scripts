@@ -5,6 +5,9 @@ namespace BasicTests;
 
 use CommonTestClass;
 use kalanis\kw_paths\Path;
+use kalanis\kw_paths\PathsException;
+use kalanis\kw_routed_paths\RoutedPath;
+use kalanis\kw_routed_paths\Sources as routeSource;
 use kalanis\kw_scripts\Interfaces\ILoader;
 use kalanis\kw_scripts\Loaders\MultiLoader;
 use kalanis\kw_scripts\Loaders\PhpLoader;
@@ -24,32 +27,40 @@ class ScriptsTest extends CommonTestClass
     }
 
     /**
+     * @throws PathsException
      * @throws ScriptsException
      */
     public function testGetRealFile(): void
     {
         $path = new Path();
         $path->setDocumentRoot(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data');
-        Scripts::init(new PhpLoader($path));
+        $routed = new RoutedPath(new routeSource\Arrays([]));
+        Scripts::init(new PhpLoader($path, $routed));
         $this->assertEquals('// dummy script file', Scripts::getFile('dummy', 'dummyScript.js'));
     }
 
     /**
+     * @throws PathsException
      * @throws ScriptsException
      */
     public function testGetNoFile(): void
     {
         $path = new Path();
         $path->setDocumentRoot(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data');
-        Scripts::init(new PhpLoader($path));
+        $routed = new RoutedPath(new routeSource\Arrays([]));
+        Scripts::init(new PhpLoader($path, $routed));
         $this->assertEquals('', Scripts::getFile('dummy', '**really-not-existing'));
     }
 
+    /**
+     * @throws PathsException
+     */
     public function testWant(): void
     {
         $path = new Path();
-        $path->setDocumentRoot('/tmp/none');
-        Scripts::init(new PhpLoader($path));
+        $path->setDocumentRoot(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data');
+        $routed = new RoutedPath(new routeSource\Arrays([]));
+        Scripts::init(new PhpLoader($path, $routed));
 
         Scripts::want('foo', 'abc');
         Scripts::want('foo', 'def');
