@@ -27,6 +27,16 @@ class ScriptsTest extends CommonTestClass
     }
 
     /**
+     * @throws ScriptsException
+     */
+    public function testNoLoader(): void
+    {
+        Scripts::init(null);
+        $this->expectException(ScriptsException::class);
+        Scripts::getFile('anything', 'will die');
+    }
+
+    /**
      * @throws PathsException
      * @throws ScriptsException
      */
